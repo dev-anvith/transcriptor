@@ -26,7 +26,7 @@ export default function App() {
     setError("");
     setSummary("");
     try {
-      const res = await axios.post("https://meeting-summarizer-backend.onrender.com/summarize", { // Make sure this URL is correct
+      const res = await axios.post(" https://transcriptor-7rm6.onrender.com/summarize", { 
         transcript,
         promptType,
       });
@@ -50,8 +50,6 @@ export default function App() {
     setError("");
   };
 
-  // This function is no longer needed, but we'll build the link directly in the JSX
-  // const handleShare = () => { ... };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center p-4 sm:p-6 font-sans">
@@ -132,7 +130,6 @@ export default function App() {
                     {copied ? <CheckIcon className="h-5 w-5 text-green-600" /> : <ClipboardDocumentIcon className="h-5 w-5" />}
                   </button>
                   
-                  {/* --- THE FIX: Use an <a> tag styled like a button --- */}
                   <a
                     href={`mailto:?subject=Meeting Summary&body=${encodeURIComponent(summary)}`}
                     className="p-2 bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors inline-block"
