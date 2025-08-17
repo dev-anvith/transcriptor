@@ -26,7 +26,7 @@ export default function App() {
     setError("");
     setSummary("");
     try {
-      const res = await axios.post("http://localhost:5000/summarize", {
+      const res = await axios.post("https://transcriptor-7rm6.onrender.com/summarize", {
         transcript,
         promptType,
       });
