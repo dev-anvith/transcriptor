@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { SparklesIcon, ClipboardDocumentIcon, CheckIcon, XCircleIcon, TrashIcon, ShareIcon } from '@heroicons/react/24/outline';
+import ReactMarkdown from 'react-markdown';
 
 export default function App() {
   const [transcript, setTranscript] = useState("");
@@ -26,7 +27,7 @@ export default function App() {
     setError("");
     setSummary("");
     try {
-      const res = await axios.post("https://transcriptor-7rm6.onrender.com/summarize", {
+      const res = await axios.post("https://meeting-summarizer-backend.onrender.com/summarize", { // Make sure this URL is correct
         transcript,
         promptType,
       });
@@ -50,19 +51,15 @@ export default function App() {
     setError("");
   };
 
-  const handleShare = () => {
-    if (!summary) return;
-    const subject = "Meeting Summary";
-    const body = encodeURIComponent(summary);
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
-  };
+  // This function is no longer needed, but we'll build the link directly in the JSX
+  // const handleShare = () => { ... };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center p-4 sm:p-6 font-sans">
       <header className="w-full max-w-5xl mb-6">
         <div className="flex items-center space-x-2">
           <SparklesIcon className="h-8 w-8 text-sky-500" />
-          <h1 className="text-2xl sm:text-3xl font-bold">TranScripter</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">Meeting Summarizer</h1>
         </div>
       </header>
 
@@ -126,7 +123,6 @@ export default function App() {
             {!loading && !error && !summary && <div className="absolute inset-0 flex items-center justify-center"><p className="text-slate-400">Your summary will appear here.</p></div>}
             {summary && (
               <>
-                
                 <textarea
                   className="w-full h-full bg-transparent border-none focus:ring-0 resize-none outline-none"
                   value={summary}
@@ -136,9 +132,16 @@ export default function App() {
                   <button onClick={handleCopy} className="p-2 bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors" title="Copy to Clipboard">
                     {copied ? <CheckIcon className="h-5 w-5 text-green-600" /> : <ClipboardDocumentIcon className="h-5 w-5" />}
                   </button>
-                  <button onClick={handleShare} className="p-2 bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors" title="Share via Email">
+                  
+                  {/* --- THE FIX: Use an <a> tag styled like a button --- */}
+                  <a
+                    href={`mailto:?subject=Meeting Summary&body=${encodeURIComponent(summary)}`}
+                    className="p-2 bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors inline-block"
+                    title="Share via Email"
+                  >
                     <ShareIcon className="h-5 w-5" />
-                  </button>
+                  </a>
+
                 </div>
               </>
             )}
