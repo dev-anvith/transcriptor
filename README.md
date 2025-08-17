@@ -110,3 +110,6 @@ The live frontend application is configured to make API calls to the live backen
 5.  The generated summary will appear in the right-hand text area.
 6.  You can edit the summary directly.
 7.  Click the **Copy** icon to copy the text or the **Share** icon to open your default email client with the summary ready to send.
+
+
+## Live - https://transcriptor-khaki.vercel.app/
