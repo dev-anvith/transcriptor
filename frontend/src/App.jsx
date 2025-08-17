@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { SparklesIcon, ClipboardDocumentIcon, CheckIcon, XCircleIcon, TrashIcon, ShareIcon } from '@heroicons/react/24/outline';
-import ReactMarkdown from 'react-markdown';
 
 export default function App() {
   const [transcript, setTranscript] = useState("");
