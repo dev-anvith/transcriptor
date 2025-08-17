@@ -20,14 +20,13 @@ app.use(bodyParser.json());
 
 app.post("/summarize", async (req, res) => {
   try {
-    // --- UPDATED: Get the promptType from the request body ---
+
     const { transcript, promptType } = req.body;
 
     if (!transcript) {
       return res.status(400).json({ error: "Transcript is required." });
     }
 
-    // --- NEW: Build a specific prompt based on the user's choice ---
     let fullPrompt = "";
     const baseInstruction = `Based on the following meeting transcript:\n\n---\n${transcript}\n---\n\n`;
 
@@ -41,8 +40,8 @@ app.post("/summarize", async (req, res) => {
       case "email":
         fullPrompt = baseInstruction + "Draft a professional and concise follow-up email to all attendees. The email should summarize the key outcomes, decisions, and action items. Start with a friendly opening and end with a clear call to action or next steps. Use a subject line like 'Meeting Follow-up: [Main Topic]'. ONLY PLAIN TEXT";
         break;
-      default: // "summary"
-        fullPrompt = baseInstruction + "Summarize the key takeaways and action items in a clear, scannable format. Use bullet points for easy reading. ONLY PLAIN TEXT";
+      default: 
+        fullPrompt = baseInstruction + "Summarize the key takeaways and action items in a clear, scannable format. Use points for easy reading. ONLY PLAIN TEXT";
     }
 
     const result = await model.generateContent(fullPrompt);

@@ -126,7 +126,7 @@ export default function App() {
             {!loading && !error && !summary && <div className="absolute inset-0 flex items-center justify-center"><p className="text-slate-400">Your summary will appear here.</p></div>}
             {summary && (
               <>
-                {/* --- BACK TO A SIMPLE, EDITABLE TEXTAREA --- */}
+                
                 <textarea
                   className="w-full h-full bg-transparent border-none focus:ring-0 resize-none outline-none"
                   value={summary}
